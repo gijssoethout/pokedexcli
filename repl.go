@@ -13,6 +13,7 @@ type config struct {
 	pokeapiClient    pokeapi.Client
 	nextLocationsURL *string
 	prevLocationsURL *string
+	cmdArgs          []string
 }
 
 func startRepl(cfg *config) {
@@ -33,6 +34,11 @@ func startRepl(cfg *config) {
 			fmt.Println("Unknown command")
 			continue
 		}
+		cfg.cmdArgs = []string{}
+		if len(words) > 1 {
+			cfg.cmdArgs = words[1:]
+		}
+
 		err := cmd.callback(cfg)
 		if err != nil {
 			fmt.Println(err)
@@ -73,6 +79,11 @@ func getCommands() map[string]cliCommand {
 			name:        "mapb",
 			description: "Displays the previous page of locations",
 			callback:    commandMapb,
+		},
+		"explore": {
+			name:        "explore",
+			description: "Displays aal pokemon found in the given location",
+			callback:    commandExplore,
 		},
 	}
 }
