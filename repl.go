@@ -72,7 +72,7 @@ func getCommands() map[string]cliCommand {
 			callback:    commandCatch,
 		},
 		"pokedex": {
-			name:        "pokedex optional:<pokemon_name>",
+			name:        "pokedex <pokemon_name>(optional)",
 			description: "if a pokemon is given: displays information about a caught pokemon; otherwise displays list of caught pokemon",
 			callback:    commandPokedex,
 		},
