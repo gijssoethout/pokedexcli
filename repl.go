@@ -11,9 +11,10 @@ import (
 
 type config struct {
 	pokeapiClient    pokeapi.Client
+	pokedex          map[string]pokeapi.Pokemon
+	cmdArgs          []string
 	nextLocationsURL *string
 	prevLocationsURL *string
-	cmdArgs          []string
 }
 
 func startRepl(cfg *config) {
@@ -65,10 +66,20 @@ func getCommands() map[string]cliCommand {
 			description: "Displays a help message",
 			callback:    commandHelp,
 		},
-		"exit": {
-			name:        "exit",
-			description: "Exit the Pokedex",
-			callback:    commandExit,
+		"catch": {
+			name:        "catch <pokemon_name>",
+			description: "Attempt to catch a pokemon",
+			callback:    commandCatch,
+		},
+		"pokedex": {
+			name:        "pokedex optional:<pokemon_name>",
+			description: "if a pokemon is given: displays information about a caught pokemon; otherwise displays list of caught pokemon",
+			callback:    commandPokedex,
+		},
+		"explore": {
+			name:        "explore <location_name>",
+			description: "Displays all pokemon found in the given location",
+			callback:    commandExplore,
 		},
 		"map": {
 			name:        "map",
@@ -80,10 +91,10 @@ func getCommands() map[string]cliCommand {
 			description: "Displays the previous page of locations",
 			callback:    commandMapb,
 		},
-		"explore": {
-			name:        "explore",
-			description: "Displays aal pokemon found in the given location",
-			callback:    commandExplore,
+		"exit": {
+			name:        "exit",
+			description: "Exit the Pokedex",
+			callback:    commandExit,
 		},
 	}
 }

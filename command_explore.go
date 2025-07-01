@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func commandExplore(cfg *config) error {
-	if cfg.cmdArgs == nil {
+	if len(cfg.cmdArgs) != 1 {
 		return fmt.Errorf("no given location found")
 	}
 
